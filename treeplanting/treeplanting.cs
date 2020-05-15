@@ -1,27 +1,21 @@
 /*
 Concept - position trees by pointing at places during runtime and have those trees persist after runtime or record the positions and 
 
-Placing trees - this should be straight forward, like a script for placing bullet-holes on a surface. 
+Placing trees 
+------------------
+This should be straight forward, like a script for placing bullet-holes on a surface. 
 On trigger press, raycast forward from controller to a collider (the ground) and instantiate a tree prefab at the collision point.
  - https://docs.unity3d.com/Manual/InstantiatingPrefabs.html
 
 
-Saving position - seems more difficult.
-While this tutorial is for gesture detection it does involve creating a list of transform positions during runtime
-by adding them to a list then copying the component, stopping play then pasting component values
- - https://www.youtube.com/watch?v=lBzwUKQ3tbw
- 
-See TransformSaver script towards the bottom of this file.
-
-https://www.reddit.com/r/Unity3D/comments/8vkdlt/how_does_one_record_and_store_transform_data_at/
- - suggests 
-   - ScriptableObjects 
-   - or PlayerPrefs https://docs.unity3d.com/ScriptReference/PlayerPrefs.html 
-      - https://answers.unity.com/questions/136426/record-objects-position-in-play-mode.html
-      
-https://answers.unity.com/questions/727974/how-can-i-keep-the-game-objects-when-i-quit-play-m.html
-
-https://github.com/newyellow/Unity-Runtime-Animation-Recorder - this is for recording animations but perhaps it is helpful.
+Saving position 
+------------------
+ - https://answers.unity.com/questions/727974/how-can-i-keep-the-game-objects-when-i-quit-play-m.html
+ - https://www.youtube.com/watch?v=lBzwUKQ3tbw - While this tutorial is for gesture detection it does involve creating a list of transform positions during runtime by adding them to a list then copying the component, stopping play then pasting component values
+ - https://github.com/mjelbart/tests/blob/master/treeplanting/TransformSaver.cs
+ - https://www.reddit.com/r/Unity3D/comments/8vkdlt/how_does_one_record_and_store_transform_data_at/
+ - PlayerPrefs https://docs.unity3d.com/ScriptReference/PlayerPrefs.html / https://answers.unity.com/questions/136426/record-objects-position-in-play-mode.html
+ - https://github.com/newyellow/Unity-Runtime-Animation-Recorder - this is for recording animations but perhaps it is helpful.
  
 */
 
@@ -29,14 +23,6 @@ https://github.com/newyellow/Unity-Runtime-Animation-Recorder - this is for reco
 // Ray to see if we hit something
 RacastHit hitInfo;
 bool hasHit = Physics.Raycast(objectLocation.position, objectLocation.forward, out hitInfo, 100);
-
-// instantiate a line from the objectLocation to the raycast hit point
-if(line)
-{
-	GameObject liner = Instantiate(line);
-	liner.GetComponent<LineRenderer>().SetPositions(new Vector3[] ( barrelLocation.position, hasHit ? hitInfo.poing : barrelLocation.position + barrelLocation.forward * 100});
-	Destroy(liner, 0.5f);
-}
 
 
 //Bullethole script GRESTHOL https://forum.unity.com/threads/bullet-hole-script.186238/
